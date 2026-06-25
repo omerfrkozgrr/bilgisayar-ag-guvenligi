@@ -1,7 +1,7 @@
 # 🛡️ Bilgisayar Ağ Güvenliği — Final Projesi
 ### Tam Sızma Testi Simülasyonu: Keşif → Saldırı → Savunma
 
-**Ömer Faruk Özgür** · `22430070048` · Bilişim Sistemleri ve Teknolojileri, 4. Sınıf · Mayıs 2026
+**Ömer Faruk Özgür** ·  Bilişim Sistemleri ve Teknolojileri, 4. Sınıf · Mayıs 2026
 
 ---
 
