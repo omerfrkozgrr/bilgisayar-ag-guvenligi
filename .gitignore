@@ -1,0 +1,8 @@
+*.pcapng
+*.pcap
+*.cap
+*.log
+.env
+__pycache__/
+.DS_Store
+Thumbs.db
